@@ -1,4 +1,4 @@
-package com.prawda.bloggApp.classes;
+package com.prawda.bloggApp.models;
 
 
 import com.prawda.bloggApp.enums.UserType;
