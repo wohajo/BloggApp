@@ -9,7 +9,7 @@ import java.nio.file.Files;
 import java.util.List;
 
 @RequiredArgsConstructor
-public class CSVToBeanConverter {
+public class CommentCSVToBeanConverter {
 
     public void test() throws IOException {
         String fileName = "src/main/resources/Comments.csv";
