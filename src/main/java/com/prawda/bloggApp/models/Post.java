@@ -1,19 +1,18 @@
 package com.prawda.bloggApp.models;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
+
 import java.util.List;
 
 @Getter
 @Setter
 @ToString
 @AllArgsConstructor
+@NoArgsConstructor
 public class Post {
     private String id;
-    private List<Author> authors;
-    private List<String> tags;
+    private List<String> authors;
+    private String tags;
     private String contents;
 }
