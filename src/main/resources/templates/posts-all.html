@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>All posts</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<!--    <link rel="stylesheet" type="text/css" media="all"-->
+<!--          href="../../css/gtvg.css" th:href="@{/css/gtvg.css}" />-->
+</head>
+    <body>
+        <p>test</p>
+        <tbody>
+            <tr th:each="post: ${posts}">
+                <td th:text="${post.id}" />
+                <td th:text="${post.tags}" />
+            </tr>
+        </tbody>
+    </body>
+</html>

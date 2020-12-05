@@ -4,6 +4,7 @@ import com.prawda.bloggApp.converters.CommentCSVToBeanConverter;
 import com.prawda.bloggApp.converters.ManyPostsManyAuthorsConverter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
 
 @SpringBootApplication
 public class BloggAppApplication {
@@ -13,7 +14,7 @@ public class BloggAppApplication {
 		ManyPostsManyAuthorsConverter manyPostsManyAuthorsConverter = new ManyPostsManyAuthorsConverter();
 		commentCsvToBeanConverter.test();
 		manyPostsManyAuthorsConverter.readLineByLine();
-		SpringApplication.run(BloggAppApplication.class, args);
+		ApplicationContext context = SpringApplication.run(BloggAppApplication.class, args);
 	}
 
 }

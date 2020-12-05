@@ -1,7 +1,7 @@
 package com.prawda.bloggApp.converters;
 
 import com.opencsv.bean.CsvToBeanBuilder;
-import com.prawda.bloggApp.models.Comment;
+import com.prawda.bloggApp.domain.Comment;
 import lombok.RequiredArgsConstructor;
 
 import java.io.*;
@@ -39,7 +39,7 @@ public class CommentCSVToBeanConverter {
 
         for (Comment bean: beans) {
             String beanXML =
-                    "   <bean id=\"comment" + bean.getId() + "\" class=\"com.prawda.bloggApp.models.Comment\">\n"
+                    "   <bean id=\"comment" + bean.getId() + "\" class=\"com.prawda.bloggApp.domain.Comment\">\n"
                     + "     <constructor-arg name=\"id\" value=\"" + bean.getId() + "\"/>\n"
                     + "     <constructor-arg name=\"username\" value=\"" + bean.getUsername() + "\"/>\n"
                     + "     <constructor-arg name=\"postId\" value=\"" + bean.getPostId() + "\"/>\n"

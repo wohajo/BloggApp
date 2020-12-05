@@ -57,14 +57,14 @@ public class ManyPostsManyAuthorsConverter {
             String contents = (String) Arrays.stream(line).toArray()[2];
 
             StringBuilder xml = new StringBuilder();
-            xml.append("    <bean id=\"list" + id + "\">\n");
-            xml.append("        <util:list value-type=\"java.lang.String\">\n");
+//            xml.append("    <bean id=\"list" + id + "\">\n");
+            xml.append("    <util:list id=\"list" + id + "\" value-type=\"java.lang.String\"  list-class=\"java.util.ArrayList\">\n");
             for (String fullName: authorsList) {
-                xml.append("            <value>" + fullName + "</value>\n");
+                xml.append("        <value>" + fullName + "</value>\n");
             }
-            xml.append("        </util:list>\n");
-            xml.append("    </bean>\n");
-            xml.append("    <bean id=\"post" + id + "\" class=\"com.prawda.bloggApp.models.Post\">\n");
+            xml.append("    </util:list>\n");
+//            xml.append("    </bean>\n");
+            xml.append("    <bean id=\"post" + id + "\" class=\"com.prawda.bloggApp.domain.Post\">\n");
             xml.append("        <constructor-arg name=\"id\" value=\"" + id + "\"/>\n");
             xml.append("        <constructor-arg name=\"authors\" ref=\"list" + id + "\"/>\n");
             xml.append("        <constructor-arg name=\"tags\" value=\"" + tags + "\"/>\n");

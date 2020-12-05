@@ -1,4 +1,4 @@
-package com.prawda.bloggApp.models;
+package com.prawda.bloggApp.domain;
 
 
 import lombok.*;
