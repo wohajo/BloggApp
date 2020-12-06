@@ -23,6 +23,11 @@ public class CommentController {
         return commentManager.getAllComments();
     }
 
+    @GetMapping("/api/comments/{id}")
+    public Comment getCommentById(@PathVariable String id) {
+        return commentManager.findById(id);
+    }
+
     @GetMapping("/api/post/{postId}/comments")
     public List<Comment> getCommentsByPostId(@PathVariable String postId) {
         return commentManager.findByPostId(postId);

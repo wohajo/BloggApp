@@ -1,6 +1,7 @@
 package com.prawda.bloggApp.service;
 
 
+import com.prawda.bloggApp.domain.Comment;
 import com.prawda.bloggApp.domain.Post;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ImportResource;
@@ -8,6 +9,8 @@ import org.springframework.context.annotation.ImportResource;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 @ImportResource("ManyPostsManyAuthors.xml")
 @Service
@@ -20,8 +23,13 @@ public class PostService implements PostManager {
     }
 
     @Override
-    public void addPost(Post post) {
+    public Post addPost(Post newPost) {
+        String newId = UUID.randomUUID().toString();
+        newPost.setId(newId);
 
+        this.postList.add(newPost);
+
+        return findById(newId);
     }
 
     @Override
@@ -39,8 +47,18 @@ public class PostService implements PostManager {
     }
 
     @Override
-    public void remove(String id) {
+    public void updatePost(Post newPost) {
+        Post oldPost = findById(newPost.getId());
+        int index = this.postList.indexOf(oldPost);
+        this.postList.set(index, newPost);
+    }
 
+    @Override
+    public void remove(String id) {
+        this.postList = this.postList
+                .stream()
+                .filter(post -> !id.equals(post.getId()))
+                .collect(Collectors.toList());
     }
 
     @Override

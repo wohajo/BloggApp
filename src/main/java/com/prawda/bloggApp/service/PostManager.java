@@ -5,9 +5,11 @@ import com.prawda.bloggApp.domain.Post;
 import java.util.List;
 
 public interface PostManager {
-    void addPost(Post post);
+    Post addPost(Post post);
 
     Post findById(String id);
+
+    void updatePost(Post newPost);
 
     List<Post> getAllPosts();
 
