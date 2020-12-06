@@ -4,10 +4,7 @@ package com.prawda.bloggApp.api;
 import com.prawda.bloggApp.domain.Comment;
 import com.prawda.bloggApp.service.CommentManager;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -36,8 +33,18 @@ public class CommentController {
         return commentManager.findByUsername(username);
     }
 
-    @DeleteMapping("api/comments/{id}")
+    @DeleteMapping("/api/comments/{id}")
     public void deleteCommentById(@PathVariable String id) {
         commentManager.remove(id);
+    }
+
+    @PutMapping("/api/comments")
+    public void updateCommentById(@RequestBody Comment comment) {
+        commentManager.updateComment(comment);
+    }
+
+    @PostMapping("/api/comments")
+    Comment addComment(@RequestBody Comment newComment) {
+        return commentManager.addComment(newComment);
     }
 }

@@ -4,11 +4,11 @@ import com.prawda.bloggApp.domain.Comment;
 import java.util.List;
 
 public interface CommentManager {
-    void addComment(Comment comment);
+    Comment addComment(Comment newComment);
 
     Comment findById(String id);
 
-    void updateComment(Comment comment);
+    void updateComment(Comment newComment);
 
     void remove(String id);
 

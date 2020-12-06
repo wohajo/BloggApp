@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @ImportResource("Comments.xml")
@@ -20,8 +21,13 @@ public class CommentService implements CommentManager {
     }
 
     @Override
-    public void addComment(Comment comment) {
+    public Comment addComment(Comment newComment) {
+        String newId = UUID.randomUUID().toString();
+        newComment.setId(newId);
 
+        this.commentList.add(newComment);
+
+        return findById(newId);
     }
 
     @Override
@@ -34,8 +40,10 @@ public class CommentService implements CommentManager {
     }
 
     @Override
-    public void updateComment(Comment comment) {
-
+    public void updateComment(Comment newComment) {
+        Comment oldComment = findById(newComment.getId());
+        int index = this.commentList.indexOf(oldComment);
+        this.commentList.set(index, newComment);
     }
 
     @Override
