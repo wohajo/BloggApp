@@ -15,7 +15,7 @@ public class Comment {
     @CsvBindByName(column = "username", required = true)
     private String username;
     @CsvBindByName(column = "id_post", required = true)
-    private int postId;
+    private String postId;
     @CsvBindByName(column = "comment_content", required = true)
     private String contents;
 }

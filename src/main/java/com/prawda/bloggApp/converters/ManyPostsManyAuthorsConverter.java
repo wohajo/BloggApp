@@ -50,7 +50,6 @@ public class ManyPostsManyAuthorsConverter {
 
         while ((line = csvReader.readNext()) != null) {
             list.add(line);
-            System.out.println("--------");
             String id = (String) Arrays.stream(line).toArray()[0];
             List<String> authorsList = getAuthorsFromString((String) Arrays.stream(line).toArray()[1]);
             String tags = (String) Arrays.stream(line).toArray()[3];

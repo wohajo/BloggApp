@@ -9,12 +9,21 @@
 <!--          href="../../css/gtvg.css" th:href="@{/css/gtvg.css}" />-->
 </head>
     <body>
-        <p>test</p>
-        <tbody>
-            <tr th:each="post: ${posts}">
-                <td th:text="${post.id}" />
-                <td th:text="${post.tags}" />
+        <table>
+            <tr>
+                <th>id</th>
+                <th>contents</th>
+                <th>authors</th>
+                <th>tags</th>
             </tr>
-        </tbody>
+            <tr th:each="post : ${posts}">
+                <td th:text="${post.getId()}"></td>
+                <td th:text="${post.getContents()}"></td>
+                <td th:each="author : ${post.getAuthors()}">
+                    <span th:text="${author}"></span>
+                </td>
+                <td th:text="${post.getTags()}"></td>
+            </tr>
+        </table>
     </body>
 </html>
