@@ -4,8 +4,7 @@ package com.prawda.bloggApp.service;
 import com.prawda.bloggApp.domain.Post;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ImportResource;
-import org.springframework.core.annotation.SynthesizedAnnotation;
-import org.springframework.stereotype.Service;
+ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +26,11 @@ public class PostService implements PostManager {
 
     @Override
     public Post findById(String id) {
-        return null;
+        return  this.postList
+                .stream()
+                .filter(post -> id.equals(post.getId()))
+                .findAny()
+                .orElse(null);
     }
 
     @Override
