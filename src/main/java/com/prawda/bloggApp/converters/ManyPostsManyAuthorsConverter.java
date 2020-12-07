@@ -23,6 +23,10 @@ public class ManyPostsManyAuthorsConverter {
                 .split(":"));
     }
 
+    public List<String> getTagsFromString (String tags) {
+        return  Arrays.asList(tags.split(" "));
+    }
+
     public List<String[]> readLineByLine() throws Exception {
         List<String[]> list = new ArrayList<>();
         CSVReader csvReader = new CSVReaderBuilder(new FileReader("src/main/resources/ManyPostsManyAuthors.csv"))
@@ -52,21 +56,24 @@ public class ManyPostsManyAuthorsConverter {
             list.add(line);
             String id = (String) Arrays.stream(line).toArray()[0];
             List<String> authorsList = getAuthorsFromString((String) Arrays.stream(line).toArray()[1]);
-            String tags = (String) Arrays.stream(line).toArray()[3];
+            List<String> tags = getTagsFromString((String) Arrays.stream(line).toArray()[3]);
             String contents = (String) Arrays.stream(line).toArray()[2];
 
             StringBuilder xml = new StringBuilder();
-//            xml.append("    <bean id=\"list" + id + "\">\n");
             xml.append("    <util:list id=\"list" + id + "\" value-type=\"java.lang.String\"  list-class=\"java.util.ArrayList\">\n");
             for (String fullName: authorsList) {
                 xml.append("        <value>" + fullName + "</value>\n");
             }
             xml.append("    </util:list>\n");
-//            xml.append("    </bean>\n");
+            xml.append("    <util:list id=\"tags" + id + "\" value-type=\"java.lang.String\"  list-class=\"java.util.ArrayList\">\n");
+            for (String tag: tags) {
+                xml.append("        <value>" + tag + "</value>\n");
+            }
+            xml.append("    </util:list>\n");
             xml.append("    <bean id=\"post" + id + "\" class=\"com.prawda.bloggApp.domain.Post\">\n");
             xml.append("        <constructor-arg name=\"id\" value=\"" + id + "\"/>\n");
             xml.append("        <constructor-arg name=\"authors\" ref=\"list" + id + "\"/>\n");
-            xml.append("        <constructor-arg name=\"tags\" value=\"" + tags + "\"/>\n");
+            xml.append("        <constructor-arg name=\"tags\" ref=\"tags" + id + "\"/>\n");
             xml.append("        <constructor-arg name=\"contents\" value=\"" + contents + "\"/>\n");
             xml.append("    </bean>\n");
             bufferedWriter.write(xml.toString());

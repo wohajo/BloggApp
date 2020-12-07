@@ -13,6 +13,6 @@ import java.util.List;
 public class Post {
     private String id;
     private List<String> authors;
-    private String tags;
+    private List<String> tags;
     private String contents;
 }
