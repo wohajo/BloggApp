@@ -1,11 +1,10 @@
 package com.prawda.bloggApp.service;
 
 
-import com.prawda.bloggApp.domain.Comment;
 import com.prawda.bloggApp.domain.Post;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ImportResource;
- import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,12 +61,57 @@ public class PostService implements PostManager {
     }
 
     @Override
-    public List<Post> findByAuthor(String authorName) {
-        return null;
+    public List<Post> getAllPostsPaginated(int number) {
+        int n = (number - 1) * 10;
+
+        return this.postList
+                .stream()
+                .skip(n)
+                .limit(10)
+                .collect(Collectors.toList());
+    }
+
+    public List<Post> findPostsPaginated(int number, String givenAuthorName, String givenTag, String givenWord) {
+        int n = (number - 1) * 10;
+
+        List<Post> returnList = new ArrayList<>();
+
+        if (givenAuthorName != null && givenAuthorName.length() > 0)
+            returnList.addAll(findByAuthor(givenAuthorName));
+        if (givenTag != null && givenTag.length() > 0)
+            returnList.addAll(findByTag(givenTag));
+        if (givenWord != null && givenWord.length() > 0)
+            returnList.addAll(findByWord(givenWord));
+
+        return returnList
+                .stream()
+                .skip(n)
+                .limit(10)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<Post> findByTag(String tag) {
-        return null;
+    public List<Post> findByAuthor(String givenAuthorName) {
+        return this.postList
+                .stream()
+                .filter(post -> post.getAuthors().stream().anyMatch(
+                        authorName -> authorName.toLowerCase().replace(" ", "").contains(givenAuthorName)))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Post> findByTag(String givenTag) {
+        return this.postList
+                .stream()
+                .filter(post -> post.getTags().stream().anyMatch(tag -> tag.contains(givenTag)))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Post> findByWord(String givenWord) {
+        return this.postList
+                .stream()
+                .filter(post -> post.getContents().contains(givenWord))
+                .collect(Collectors.toList());
     }
 }

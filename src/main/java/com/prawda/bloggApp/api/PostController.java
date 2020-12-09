@@ -24,6 +24,20 @@ public class PostController {
         return postManager.getAllPosts();
     }
 
+    @GetMapping("/api/posts/page/{number}")
+    public List<Post> getAllPostsPaginated(@PathVariable int number) {
+        return postManager.getAllPostsPaginated(number);
+    }
+
+    @GetMapping("/api/posts/find/page/{number}")
+    public List<Post> getFoundPostsPaginated(
+            @PathVariable int number,
+            @RequestParam String author,
+            @RequestParam String tag,
+            @RequestParam String contents) {
+        return postManager.findPostsPaginated(number, author, tag, contents);
+    }
+
     @PostMapping("/api/posts")
     public Post addPost(@RequestBody Post post) {
         return postManager.addPost(post);
@@ -37,6 +51,21 @@ public class PostController {
     @GetMapping("/api/posts/{id}")
     public Post getPostById(@PathVariable String id) {
         return postManager.findById(id);
+    }
+
+    @GetMapping("/api/posts/author/{authorName}")
+    public List<Post> getPostsByAuthorName(@PathVariable String authorName) {
+        return postManager.findByAuthor(authorName);
+    }
+
+    @GetMapping("/api/posts/tag/{tagName}")
+    public List<Post> getPostsByTag(@PathVariable String tagName) {
+        return postManager.findByTag(tagName);
+    }
+
+    @GetMapping("/api/posts/contents/{word}")
+    public List<Post> getPostsByWord(@PathVariable String word) {
+        return postManager.findByWord(word);
     }
 
     @PutMapping("/api/posts")

@@ -15,7 +15,13 @@ public interface PostManager {
 
     void remove(String id);
 
-    List<Post> findByAuthor(String authorName);
+    List<Post> getAllPostsPaginated(int number);
 
-    List<Post> findByTag(String tag);
+    List<Post> findByAuthor(String givenAuthorName);
+
+    List<Post> findByTag(String givenTag);
+
+    List<Post> findByWord(String givenWord);
+
+    List<Post> findPostsPaginated(int number, String givenAuthorName, String givenTag, String givenWord);
 }
