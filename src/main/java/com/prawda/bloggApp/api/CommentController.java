@@ -2,6 +2,7 @@ package com.prawda.bloggApp.api;
 
 
 import com.prawda.bloggApp.domain.Comment;
+import com.prawda.bloggApp.helperDomain.UserCommentsCount;
 import com.prawda.bloggApp.service.CommentManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

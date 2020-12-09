@@ -1,6 +1,8 @@
 package com.prawda.bloggApp.service;
 
 import com.prawda.bloggApp.domain.Comment;
+import com.prawda.bloggApp.helperDomain.UserCommentsCount;
+
 import java.util.List;
 
 public interface CommentManager {
