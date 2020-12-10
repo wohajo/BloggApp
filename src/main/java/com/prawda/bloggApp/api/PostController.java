@@ -34,7 +34,7 @@ public class PostController {
 
     @GetMapping("/api/posts/pages")
     public int getAllPostsPaginatedCount() {
-        return postManager.getAllPosts().size() / 10;
+        return (int) Math.ceil(postManager.getAllPosts().size() / 10.0);
     }
 
     @GetMapping("/api/posts/find/all")
