@@ -38,11 +38,11 @@ public class PostController {
     }
 
     @GetMapping("/api/posts/find/all")
-    public List<Post> getFoundPosts(
+    public int getFoundPostsCount(
             @RequestParam String author,
             @RequestParam String tag,
             @RequestParam String contents) {
-        return postManager.findPosts(author, tag, contents);
+        return (int) Math.ceil(postManager.findPosts(author, tag, contents).size() / 10.0);
     }
 
     @GetMapping("/api/posts/find/page/{number}")
