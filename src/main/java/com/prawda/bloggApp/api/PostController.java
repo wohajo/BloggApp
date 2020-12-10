@@ -32,6 +32,19 @@ public class PostController {
         return postManager.getAllPostsPaginated(number);
     }
 
+    @GetMapping("/api/posts/pages")
+    public int getAllPostsPaginatedCount() {
+        return postManager.getAllPosts().size() / 10;
+    }
+
+    @GetMapping("/api/posts/find/all")
+    public List<Post> getFoundPosts(
+            @RequestParam String author,
+            @RequestParam String tag,
+            @RequestParam String contents) {
+        return postManager.findPosts(author, tag, contents);
+    }
+
     @GetMapping("/api/posts/find/page/{number}")
     public List<Post> getFoundPostsPaginated(
             @PathVariable int number,

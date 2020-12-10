@@ -74,12 +74,7 @@ public class PostService implements PostManager {
                 .collect(Collectors.toList());
     }
 
-    public List<Post> findPostsPaginated(int number, String givenAuthorName, String givenTag, String givenWord) {
-        if (number < 1)
-            return null;
-
-        int n = (number - 1) * 10;
-
+    public List<Post> findPosts(String givenAuthorName, String givenTag, String givenWord) {
         List<Post> returnList = new ArrayList<>();
 
         if (givenAuthorName != null && givenAuthorName.length() > 0)
@@ -89,7 +84,16 @@ public class PostService implements PostManager {
         if (givenWord != null && givenWord.length() > 0)
             returnList.addAll(findByWord(givenWord));
 
-        return returnList
+        return returnList;
+    }
+
+    public List<Post> findPostsPaginated(int number, String givenAuthorName, String givenTag, String givenWord) {
+        if (number < 1)
+            return null;
+
+        int n = (number - 1) * 10;
+
+        return findPosts(givenAuthorName, givenTag, givenWord)
                 .stream()
                 .skip(n)
                 .limit(10)
@@ -101,7 +105,13 @@ public class PostService implements PostManager {
         return this.postList
                 .stream()
                 .filter(post -> post.getAuthors().stream().anyMatch(
-                        authorName -> authorName.toLowerCase().replace(" ", "").contains(givenAuthorName)))
+                        authorName -> authorName
+                                .toLowerCase()
+                                .replace(" ", "")
+                                .contains(
+                                        givenAuthorName
+                                                .toLowerCase()
+                                                .replace(" ", ""))))
                 .collect(Collectors.toList());
     }
 
