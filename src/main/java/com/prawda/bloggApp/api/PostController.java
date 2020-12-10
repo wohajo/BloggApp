@@ -4,8 +4,11 @@ package com.prawda.bloggApp.api;
 import com.prawda.bloggApp.domain.Post;
 import com.prawda.bloggApp.service.PostManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
 import java.util.List;
 
 @CrossOrigin
@@ -25,7 +28,7 @@ public class PostController {
     }
 
     @GetMapping("/api/posts/page/{number}")
-    public List<Post> getAllPostsPaginated(@PathVariable int number) {
+    public List<Post> getAllPostsPaginated(@PathVariable @Min(1) int number) {
         return postManager.getAllPostsPaginated(number);
     }
 
@@ -39,7 +42,8 @@ public class PostController {
     }
 
     @PostMapping("/api/posts")
-    public Post addPost(@RequestBody Post post) {
+    @ResponseStatus(HttpStatus.CREATED)
+    public Post addPost(@Valid @RequestBody Post post) {
         return postManager.addPost(post);
     }
 
@@ -69,7 +73,7 @@ public class PostController {
     }
 
     @PutMapping("/api/posts")
-    public void updatePostById(@RequestBody Post post) {
+    public void updatePostById(@Valid @RequestBody Post post) {
         postManager.updatePost(post);
     }
 }

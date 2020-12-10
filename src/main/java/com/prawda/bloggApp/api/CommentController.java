@@ -2,11 +2,12 @@ package com.prawda.bloggApp.api;
 
 
 import com.prawda.bloggApp.domain.Comment;
-import com.prawda.bloggApp.helperDomain.UserCommentsCount;
 import com.prawda.bloggApp.service.CommentManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @CrossOrigin
@@ -46,12 +47,13 @@ public class CommentController {
     }
 
     @PutMapping("/api/comments")
-    public void updateCommentById(@RequestBody Comment comment) {
+    public void updateCommentById(@Valid @RequestBody Comment comment) {
         commentManager.updateComment(comment);
     }
 
     @PostMapping("/api/comments")
-    Comment addComment(@RequestBody Comment newComment) {
+    @ResponseStatus(HttpStatus.CREATED)
+    Comment addComment(@Valid @RequestBody Comment newComment) {
         return commentManager.addComment(newComment);
     }
 }

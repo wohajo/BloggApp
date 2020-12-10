@@ -62,6 +62,9 @@ public class PostService implements PostManager {
 
     @Override
     public List<Post> getAllPostsPaginated(int number) {
+        if (number < 1)
+            return null;
+
         int n = (number - 1) * 10;
 
         return this.postList
@@ -72,6 +75,9 @@ public class PostService implements PostManager {
     }
 
     public List<Post> findPostsPaginated(int number, String givenAuthorName, String givenTag, String givenWord) {
+        if (number < 1)
+            return null;
+
         int n = (number - 1) * 10;
 
         List<Post> returnList = new ArrayList<>();
