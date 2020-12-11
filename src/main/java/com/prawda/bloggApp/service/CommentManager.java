@@ -13,6 +13,8 @@ public interface CommentManager {
 
     void remove(String id);
 
+    void removeByPostId(String id);
+
     List<Comment> getAllComments();
 
     List<Comment> findByPostId(String postId);

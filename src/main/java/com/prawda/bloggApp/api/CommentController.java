@@ -31,9 +31,14 @@ public class CommentController {
         return commentManager.findById(id);
     }
 
-    @GetMapping("/api/post/{postId}/comments")
+    @GetMapping("/api/posts/{postId}/comments")
     public List<Comment> getCommentsByPostId(@PathVariable String postId) {
         return commentManager.findByPostId(postId);
+    }
+
+    @DeleteMapping("/api/posts/{postId}/comments")
+    public void removeCommentsByPostId(@PathVariable String postId) {
+        commentManager.removeByPostId(postId);
     }
 
     @GetMapping("/api/comments/user/{username}")

@@ -55,6 +55,14 @@ public class CommentService implements CommentManager {
     }
 
     @Override
+    public void removeByPostId(String id) {
+        this.commentList = this.commentList
+                .stream()
+                .filter(comment -> !id.equals(comment.getPostId()))
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public List<Comment> getAllComments() {
         return this.commentList;
     }
@@ -71,7 +79,7 @@ public class CommentService implements CommentManager {
     public List<Comment> findByUsername(String username) {
         return this.commentList
                 .stream()
-                .filter(comment -> username.equals(comment.getUsername()))
+                .filter(comment -> comment.getUsername().contains(username))
                 .collect(Collectors.toList());
     }
 }
