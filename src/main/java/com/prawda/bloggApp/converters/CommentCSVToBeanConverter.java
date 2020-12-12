@@ -11,7 +11,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CommentCSVToBeanConverter {
 
-    public void test() throws IOException {
+    public void parse() throws IOException {
         String fileName = "src/main/resources/Comments.csv";
         String outputFileName = "src/main/resources/Comments.xml";
 

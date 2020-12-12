@@ -27,7 +27,7 @@ public class ManyPostsManyAuthorsConverter {
         return  Arrays.asList(tags.split(" "));
     }
 
-    public List<String[]> readLineByLine() throws Exception {
+    public List<String[]> parse() throws Exception {
         List<String[]> list = new ArrayList<>();
         CSVReader csvReader = new CSVReaderBuilder(new FileReader("src/main/resources/ManyPostsManyAuthors.csv"))
                 .withSkipLines(1).build();

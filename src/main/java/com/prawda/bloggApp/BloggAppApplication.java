@@ -12,8 +12,8 @@ public class BloggAppApplication {
 	public static void main(String[] args) throws Exception {
 		CommentCSVToBeanConverter commentCsvToBeanConverter = new CommentCSVToBeanConverter();
 		ManyPostsManyAuthorsConverter manyPostsManyAuthorsConverter = new ManyPostsManyAuthorsConverter();
-		commentCsvToBeanConverter.test();
-		manyPostsManyAuthorsConverter.readLineByLine();
+		commentCsvToBeanConverter.parse();
+		manyPostsManyAuthorsConverter.parse();
 		ApplicationContext context = SpringApplication.run(BloggAppApplication.class, args);
 	}
 
