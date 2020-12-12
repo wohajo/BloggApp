@@ -38,7 +38,7 @@ public class StatisticsController {
 
         List<StatsObject> sorted = getSortedStats(commentsByUserCount);
 
-        return sorted.subList(Math.max(sorted.size() - 5, 0), sorted.size());
+        return sorted.subList(Math.max(sorted.size() - 3, 0), sorted.size());
     }
 
     @GetMapping("/api/statistics/best-posts")
@@ -57,7 +57,7 @@ public class StatisticsController {
 
         List<StatsObject> sorted = getSortedStats(commentsInPostCount);
 
-        return sorted.subList(Math.max(sorted.size() - 5, 0), sorted.size());
+        return sorted.subList(Math.max(sorted.size() - 3, 0), sorted.size());
     }
 
     @GetMapping("/api/statistics/longest-posts")
@@ -70,7 +70,7 @@ public class StatisticsController {
 
         List<StatsObject> sorted = getSortedStats(postLengthCount);
 
-        return sorted.subList(Math.max(sorted.size() - 5, 0), sorted.size());
+        return sorted.subList(Math.max(sorted.size() - 3, 0), sorted.size());
     }
 
     private List<StatsObject> getSortedStats(HashMap<String, Integer> commentsInPostCount) {

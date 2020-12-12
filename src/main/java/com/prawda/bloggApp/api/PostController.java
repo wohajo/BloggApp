@@ -41,8 +41,9 @@ public class PostController {
     public int getFoundPostsCount(
             @RequestParam String author,
             @RequestParam String tag,
-            @RequestParam String contents) {
-        return (int) Math.ceil(postManager.findPosts(author, tag, contents).size() / 10.0);
+            @RequestParam String contents,
+            @RequestParam String id) {
+        return (int) Math.ceil(postManager.findPosts(author, tag, contents, id).size() / 10.0);
     }
 
     @GetMapping("/api/posts/find/page/{number}")
@@ -50,8 +51,9 @@ public class PostController {
             @PathVariable int number,
             @RequestParam String author,
             @RequestParam String tag,
-            @RequestParam String contents) {
-        return postManager.findPostsPaginated(number, author, tag, contents);
+            @RequestParam String contents,
+            @RequestParam String id) {
+        return postManager.findPostsPaginated(number, author, tag, contents, id);
     }
 
     @PostMapping("/api/posts")

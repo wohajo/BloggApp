@@ -23,7 +23,7 @@ public interface PostManager {
 
     List<Post> findByWord(String givenWord);
 
-    List<Post> findPosts(String givenAuthorName, String givenTag, String givenWord);
+    List<Post> findPosts(String givenAuthorName, String givenTag, String givenWord, String givenId);
 
-    List<Post> findPostsPaginated(int number, String givenAuthorName, String givenTag, String givenWord);
+    List<Post> findPostsPaginated(int number, String givenAuthorName, String givenTag, String givenWord, String givenId);
 }
