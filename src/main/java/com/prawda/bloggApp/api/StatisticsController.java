@@ -1,14 +1,13 @@
 package com.prawda.bloggApp.api;
 
+import com.prawda.bloggApp.domain.StatsObject;
 import com.prawda.bloggApp.service.CommentManager;
 import com.prawda.bloggApp.service.PostManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
@@ -24,7 +23,7 @@ public class StatisticsController {
     }
 
     @GetMapping("/api/statistics/best-users")
-    public HashMap<String, Integer> getBestUsersStats() {
+    public List<StatsObject> getBestUsersStats() {
         HashMap<String, Integer> commentsByUserCount = new HashMap<String, Integer>();
 
         this.commentManager.getAllComments().forEach(
@@ -37,17 +36,13 @@ public class StatisticsController {
                 })
         );
 
-        return commentsByUserCount.entrySet()
-                .stream()
-                .sorted(Map.Entry.comparingByValue())
-                .collect(Collectors.toMap(
-                        Map.Entry::getKey,
-                        Map.Entry::getValue,
-                        (oldValue, newValue) -> oldValue, LinkedHashMap::new));
+        List<StatsObject> sorted = getSortedStats(commentsByUserCount);
+
+        return sorted.subList(Math.max(sorted.size() - 5, 0), sorted.size());
     }
 
     @GetMapping("/api/statistics/best-posts")
-    public HashMap<String, Integer> getBestPostsStats() {
+    public List<StatsObject> getBestPostsStats() {
         HashMap<String, Integer> commentsInPostCount = new HashMap<String, Integer>();
 
         this.commentManager.getAllComments().forEach(
@@ -60,29 +55,39 @@ public class StatisticsController {
                 })
         );
 
-        return commentsInPostCount.entrySet()
-                .stream()
-                .sorted(Map.Entry.comparingByValue())
-                .collect(Collectors.toMap(
-                        Map.Entry::getKey,
-                        Map.Entry::getValue,
-                        (oldValue, newValue) -> oldValue, LinkedHashMap::new));
+        List<StatsObject> sorted = getSortedStats(commentsInPostCount);
+
+        return sorted.subList(Math.max(sorted.size() - 5, 0), sorted.size());
     }
 
     @GetMapping("/api/statistics/longest-posts")
-    public HashMap<String, Integer> getLongestPost() {
+    public List<StatsObject> getLongestPost() {
         HashMap<String, Integer> postLengthCount = new HashMap<String, Integer>();
 
         this.postManager.getAllPosts().forEach(
                 (post -> postLengthCount.put(post.getId(), post.getContents().length()))
         );
 
-        return postLengthCount.entrySet()
+        List<StatsObject> sorted = getSortedStats(postLengthCount);
+
+        return sorted.subList(Math.max(sorted.size() - 5, 0), sorted.size());
+    }
+
+    private List<StatsObject> getSortedStats(HashMap<String, Integer> commentsInPostCount) {
+        HashMap<String, Integer> commentsInPostCountSorted = commentsInPostCount.entrySet()
                 .stream()
                 .sorted(Map.Entry.comparingByValue())
                 .collect(Collectors.toMap(
                         Map.Entry::getKey,
                         Map.Entry::getValue,
                         (oldValue, newValue) -> oldValue, LinkedHashMap::new));
+
+        List<StatsObject> statsList = new ArrayList<>();
+
+        for(Map.Entry<String, Integer> entry : commentsInPostCountSorted.entrySet()) {
+            statsList.add(new StatsObject(entry.getKey(), entry.getValue()));
+        }
+
+        return statsList;
     }
 }
